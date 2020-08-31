@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v2-beta
       - uses: sfdx-actions/setup-sfdx@v1
       - name: Install sfdx
         run: |
