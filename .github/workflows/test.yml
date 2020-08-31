@@ -1,0 +1,34 @@
+name: Deploy, Run Apex Tests, Delete Org
+
+on:
+  push:
+    branches:
+      - '**'
+      - '!master'
+    paths-ignore:
+      - 'docs/**'
+      - 'README.md'
+
+jobs:
+  unit_tests:
+    name: 'Run Apex tests'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - uses: sfdx-actions/setup-sfdx@v1
+      - name: Install sfdx
+        run: |
+          mkdir sfdx
+          wget -qO- https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz | tar xJ -C sfdx --strip-components 1
+          ./sfdx/install
+          echo ${{ secrets.SFDX_AUTH_URL }} > sfdx_auth
+          sfdx force:auth:sfdxurl:store -f sfdx_auth -d
+      - name: Install Plugins
+        run: |
+          echo y | sfdx plugins:install shane-sfdx-plugins
+      - name: Deploy and Run Tests
+        run: |
+          ./orgInit.sh
+          sfdx force:apex:test:run --synchronous --json
+          sfdx shane:org:delete
