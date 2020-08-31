@@ -1,11 +1,7 @@
 {
   "orgName": "scratch-org-demo",
-  "adminEmail": "sfdx@mailinator.com",
   "edition": "Developer",
   "settings": {
-    "communitiesSettings": {
-      "enableNetworksEnabled": false
-    },
     "lightningExperienceSettings": {
       "enableS1DesktopEnabled": true
     },
