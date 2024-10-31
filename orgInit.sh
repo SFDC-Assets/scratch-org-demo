@@ -1,3 +1,3 @@
-sfdx force:org:create -f config/project-scratch-def.json -d 1 -s
-sfdx force:source:push
-sfdx force:org:open
+sf demoutil org create scratch -f config/project-scratch-def.json -d 5 -s -p scratch -e org.demo
+sf project deploy start
+sf org open
